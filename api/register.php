@@ -25,8 +25,8 @@ if(file_exists($userFileJSON)) {
 } 
 
 if($requestMethod == "POST") {
-    if(!isset($requestData["username"], $requestData["password"])) {
-        $error = ["error" => "Bad Request"];
+    if(empty($requestData["username"]) || empty($requestData["password"])) {
+        $error = ["message" => "Bad Request (empty values)"];
         sendJSON($error, 400);
     }
 
@@ -41,6 +41,8 @@ if($requestMethod == "POST") {
     file_put_contents($userFileJSON, $json);
     sendJSON($newUser);
 }
+
+
 
 
 
