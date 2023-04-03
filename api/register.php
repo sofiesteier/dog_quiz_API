@@ -7,6 +7,8 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 $contentType = $_SERVER["CONTENT_TYPE"];
 
+$userFileJSON = "data.json";
+
 if($contentType != "application/json") {
     $error = ["error" => "Invalid Content Type. Only JSON is allowed."];
     sendJSON($error, 405);
@@ -15,9 +17,12 @@ if($contentType != "application/json") {
 $requestJSON = file_get_contents("php://input");
 $requestData = json_decode($requestJSON, true);
 
+$users = [];
 
-
-$user = [];
+if(file_exists($userFileJSON)) {
+    $json = file_get_contents($userFileJSON);
+    $users = json_decode($json, true);
+} 
 
 if($requestMethod == "POST") {
     if(!isset($requestData["username"], $requestData["password"])) {
@@ -28,7 +33,13 @@ if($requestMethod == "POST") {
     $username = $requestData["username"];
     $password = $requestData["password"];   
     
-    
+    $newUser = ["username" => $username, "password" => $password, "points" => 0];
+    $users[] = $newUser;
+
+    $json = json_encode($users, JSON_PRETTY_PRINT);
+
+    file_put_contents($userFileJSON, $json);
+    sendJSON($newUser);
 }
 
 
