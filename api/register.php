@@ -48,15 +48,9 @@ foreach($users as $user) {
 
 $newUser = ["username" => $username, "password" => $password, "points" => 0];
 $users[] = $newUser;
+
 $json = json_encode($users, JSON_PRETTY_PRINT);
 file_put_contents($userFileJSON, $json);
 sendJSON($newUser, 201);
-
-
-
-
-
-
-
 
 ?>
