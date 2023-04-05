@@ -38,5 +38,10 @@
         "username": "love",
         "password": "dogs",
         "points": 0
+    },
+    {
+        "username": "sofie",
+        "password": "steier",
+        "points": 0
     }
 ]

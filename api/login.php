@@ -37,13 +37,15 @@ if(file_exists($userFileJSON)) {
 $username = $requestData["username"];
 $password = $requestData["password"];
 
-foreach($users as $user) {
-    if($user["username"] == $username and $user["password"] == $password){
-        sendJSON($user);
-    }
 
-    $error = ["message" => "Not found"];
-    sendJSON($error);
+foreach($users as $user) {
+
+    if($user["username"] == $username and $user["password"] == $password) {
+        sendJSON($user);
+    } 
 }
+
+$error = ["message" => "Not Found"];
+sendJSON($error, 404);
 
 ?>
