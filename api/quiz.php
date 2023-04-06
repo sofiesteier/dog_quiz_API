@@ -69,7 +69,7 @@ foreach($four_dogs as $dog) {
 }
 
 $quizInfo = [
-    "image" => "images/" . $dog["url"],
+    "image" => "images/" . $correct_dog["url"],
     "alternatives" => $quizAnswer,
 ];
 
