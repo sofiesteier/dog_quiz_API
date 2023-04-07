@@ -1,47 +1,27 @@
 [
     {
-        "username": "wnde",
-        "password": "wednw",
-        "points": 0
-    },
-    {
-        "username": "hejhopp",
-        "password": "hejhej",
-        "points": 0
-    },
-    {
-        "username": "hhh",
-        "password": "jkawdnesjwa",
-        "points": 0
-    },
-    {
-        "username": "hqwbd",
-        "password": "wjkdnx",
-        "points": 0
-    },
-    {
-        "username": "hqw",
-        "password": "wjkdnx",
-        "points": 0
-    },
-    {
-        "username": "hb",
-        "password": "inbkj",
-        "points": 0
-    },
-    {
-        "username": "tvyuv",
-        "password": "buy",
-        "points": 0
-    },
-    {
-        "username": "love",
-        "password": "dogs",
-        "points": 0
-    },
-    {
         "username": "sofie",
         "password": "steier",
-        "points": 0
+        "points": 7
+    },
+    {
+        "username": "sof",
+        "password": "ste",
+        "points": 6
+    },
+    {
+        "username": "test",
+        "password": "123",
+        "points": 5
+    },
+    {
+        "username": "hall\u00e5",
+        "password": "hej",
+        "points": 1
+    },
+    {
+        "username": "ye",
+        "password": "yee",
+        "points": 5
     }
 ]
