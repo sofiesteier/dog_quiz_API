@@ -35,6 +35,11 @@ if(file_exists($JSONFileOfUsers)) {
 $username = $requestData["username"];
 $password = $requestData["password"];
 
+if(empty($username) || empty($password)) {
+    $error = ["message" => "Bad Request (empty values)"];
+    sendJSON($error, 400);
+} 
+
 foreach($users as $user) {
     if($user["username"] == $username and $user["password"] == $password) {
         sendJSON($user);
