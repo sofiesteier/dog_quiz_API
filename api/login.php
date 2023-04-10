@@ -28,7 +28,7 @@ if(file_exists($JSONFileOfUsers)) {
     $json = file_get_contents($JSONFileOfUsers);
     $users = json_decode($json, true);
 } else {
-    $error = ["message" => "JSON file does not exists"]; 
+    $error = ["message" => "JSON file does not exists."]; 
     sendJSON($error, 500);
 }
 

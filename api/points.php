@@ -8,7 +8,7 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 $allowedMethods = ["POST", "GET"];
 
 if(!in_array($requestMethod, $allowedMethods)) {
-    $error = ["message" => "Invalid HTTP method."];
+    $error = ["message" => "Invalid HTTP method"];
     sendJSON($error, 405);
 }
 
@@ -16,7 +16,7 @@ if($requestMethod == "POST") {
     $contentType = $_SERVER["CONTENT_TYPE"];
 
     if($contentType != "application/json") {
-    $error = ["message" => "Invalid Content Type. Only JSON is allowed."];
+    $error = ["message" => "Invalid Content Type (Only JSON is allowed)"];
     sendJSON($error, 400);
     }
 
@@ -66,7 +66,7 @@ if($requestMethod == "GET") {
         $json = file_get_contents($JSONFileOfUsers);
         $users = json_decode($json, true);
     } else {
-        $error = ["error" => "JSON file does not exists."]; 
+        $error = ["message" => "JSON file does not exists."]; 
         sendJSON($error, 404);
     }
     
