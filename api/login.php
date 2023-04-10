@@ -5,41 +5,37 @@ require_once("functions.php");
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-$allowedMethods = ["POST"];
+$allowedMethod = ["POST"];
 
-if(!in_array($requestMethod, $allowedMethods)) {
-    $error = ["error" => "Invalid HTTP method."];
+if(!in_array($requestMethod, $allowedMethod)) {
+    $error = ["message" => "Method Not Allowed (only POST is allowed)"];
     sendJSON($error, 405);
 }
 
 $contentType = $_SERVER["CONTENT_TYPE"];
 
 if($contentType != "application/json") {
-    $error = ["error" => "Invalid Content Type. Only JSON is allowed."];
+    $error = ["message" => "Invalid Content Type (Only JSON is allowed)"];
     sendJSON($error, 400);
 }
 
 $requestJSON = file_get_contents("php://input");
 $requestData = json_decode($requestJSON, true);
 
-$userFileJSON = "data.json";
+$JSONFileOfUsers = "data.json";
 
-$users = [];
-
-if(file_exists($userFileJSON)) {
-    $json = file_get_contents($userFileJSON);
+if(file_exists($JSONFileOfUsers)) {
+    $json = file_get_contents($JSONFileOfUsers);
     $users = json_decode($json, true);
 } else {
-    $error = ["error" => "JSON file does not exists."]; 
-    sendJSON($error);
+    $error = ["message" => "JSON file does not exists"]; 
+    sendJSON($error, 500);
 }
 
 $username = $requestData["username"];
 $password = $requestData["password"];
 
-
 foreach($users as $user) {
-
     if($user["username"] == $username and $user["password"] == $password) {
         sendJSON($user);
     } 
@@ -47,5 +43,4 @@ foreach($users as $user) {
 
 $error = ["message" => "Not Found"];
 sendJSON($error, 404);
-
 ?>
