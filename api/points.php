@@ -27,10 +27,10 @@ if($requestMethod == "POST") {
     $password = $requestData["password"];
     $UserPoints = $requestData["points"];
 
-    $userFileJSON = "data.json";
+    $JSONFileOfUsers = "data.json";
 
-    if(file_exists($userFileJSON)) {
-        $json = file_get_contents($userFileJSON);
+    if(file_exists($JSONFileOfUsers)) {
+        $json = file_get_contents($JSONFileOfUsers);
         $users = json_decode($json, true);
     } else {
         $error = ["message" => "JSON file does not exists."]; 
@@ -49,7 +49,7 @@ if($requestMethod == "POST") {
     }
 
     $json = json_encode($updatedUsers, JSON_PRETTY_PRINT);
-    file_put_contents($userFileJSON, $json);
+    file_put_contents($JSONFileOfUsers, $json);
 
     foreach($users as $user) {
         if($user["username"] == $username) {
@@ -60,10 +60,10 @@ if($requestMethod == "POST") {
 }
 
 if($requestMethod == "GET") {
-    $userFileJSON = "data.json";
+    $JSONFileOfUsers = "data.json";
 
-    if(file_exists($userFileJSON)) {
-        $json = file_get_contents($userFileJSON);
+    if(file_exists($JSONFileOfUsers)) {
+        $json = file_get_contents($JSONFileOfUsers);
         $users = json_decode($json, true);
     } else {
         $error = ["error" => "JSON file does not exists."]; 
