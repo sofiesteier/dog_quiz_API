@@ -1,24 +1,21 @@
 <?php
-
 ini_set("display_errors", 1);
 
 require_once("functions.php");
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-$allowedMethods = ["GET"];
+$allowedMethod = ["GET"];
 
-if(!in_array($requestMethod, $allowedMethods)) {
-    $error = ["message" => "Invalid HTTP method."];
+if(!in_array($requestMethod, $allowedMethod)) {
+    $error = ["message" => "Method Not Allowed (only POST is allowed)"];
     sendJSON($error, 405);
 }
 
-$userFileJSON = "data.json";
+$JSONFileOfUsers = "data.json";
 
-$users = [];
-
-if(file_exists($userFileJSON)) {
-    $json = file_get_contents($userFileJSON);
+if(file_exists($JSONFileOfUsers)) {
+    $json = file_get_contents($JSONFileOfUsers);
     $users = json_decode($json, true);
 } else {
     $error = ["message" => "JSON file does not exists."]; 
@@ -26,22 +23,20 @@ if(file_exists($userFileJSON)) {
 }
 
 $images = scandir("../images", $sorting_order = SCANDIR_SORT_ASCENDING);
-
 $dots = [".", ".."];
-
-$array_of_images = array_diff($images, $dots);
+$arrayOfImages = array_diff($images, $dots);
 
 $dogs = [];
 
-foreach($array_of_images as $dog) {
-    $name_of_dog = str_replace(["_", ".jpg"], " ", $dog);
+foreach($arrayOfImages as $dog) {
+    $nameOfDog = str_replace(["_", ".jpg"], " ", $dog);
 
-    $current_dog = [
-        "name" => trim($name_of_dog),
+    $currentDog = [
+        "name" => trim($nameOfDog),
         "url" => $dog,
     ];
 
-    $dogs[] = $current_dog;
+    $dogs[] = $currentDog;
 }
 
 $dogsJSON = "dogs.json";
@@ -52,24 +47,19 @@ if(!file_exists($dogsJSON)) {
 } 
 
 shuffle($dogs);
+$fourDogs = array_splice($dogs, 0, 4);
+$randomIndex = rand(0, 3);
+$correctDog = $fourDogs[$randomIndex];
 
-$four_dogs = array_splice($dogs, 0, 4);
-
-$random_index = rand(0, 3);
-
-$correct_dog = $four_dogs[$random_index];
-
-foreach($four_dogs as $dog) {
-    
+foreach($fourDogs as $dog) {
     $quizAnswer[] = [
-        "correct" => ($dog == $correct_dog ? true : false),
+        "correct" => ($dog == $correctDog ? true : false),
         "name" => $dog["name"],
     ];
-
 }
 
 $quizInfo = [
-    "image" => "images/" . $correct_dog["url"],
+    "image" => "images/" . $correctDog["url"],
     "alternatives" => $quizAnswer,
 ];
 
@@ -77,10 +67,4 @@ header("Content-Type: application/json");
 http_response_code(200);
 echo json_encode($quizInfo);
 exit();
-
-/*
-header("Content-Type: application/json");
-echo '{"image":"images\/German_Shepherd.jpg","alternatives":[{"correct":false,"name":"Shetland Sheepdog"},{"correct":false,"name":"Jack Russell Terrier"},{"correct":true,"name":"German Shepherd"},{"correct":false,"name":"Labrador Retriever"}]}'
-exit();
-*/
 ?>
