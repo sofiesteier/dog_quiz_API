@@ -8,12 +8,11 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 $allowedMethods = ["POST", "GET"];
 
 if(!in_array($requestMethod, $allowedMethods)) {
-    $error = ["error" => "Invalid HTTP method."];
+    $error = ["message" => "Invalid HTTP method."];
     sendJSON($error, 405);
 }
 
 if($requestMethod == "POST") {
-
     $contentType = $_SERVER["CONTENT_TYPE"];
 
     if($contentType != "application/json") {
@@ -24,14 +23,9 @@ if($requestMethod == "POST") {
     $requestJSON = file_get_contents("php://input");
     $requestData = json_decode($requestJSON, true);
 
-
     $username = $requestData["username"];
     $password = $requestData["password"];
     $UserPoints = $requestData["points"];
-
-
-    $requestJSON = file_get_contents("php://input");
-    $requestData = json_decode($requestJSON, true);
 
     $userFileJSON = "data.json";
 
@@ -39,22 +33,19 @@ if($requestMethod == "POST") {
         $json = file_get_contents($userFileJSON);
         $users = json_decode($json, true);
     } else {
-        $error = ["error" => "JSON file does not exists."]; 
+        $error = ["message" => "JSON file does not exists."]; 
         sendJSON($error, 404);
     }
 
     $updatedUsers = [];
 
     foreach($users as $user) {
-
         $userInfo = [
             "username" => $user["username"],
             "password" => $user["password"],
             "points" => ($user["username"] == $username ? $user["points"] + $UserPoints : $user["points"]),
         ];
-
         $updatedUsers[] = $userInfo;
-
     }
 
     $json = json_encode($updatedUsers, JSON_PRETTY_PRINT);
@@ -65,13 +56,12 @@ if($requestMethod == "POST") {
             $newPoints = ["points" => $user["points"] + $UserPoints];
         }
     }
-
     sendJSON($newPoints);
 }
 
 if($requestMethod == "GET") {
-
     $userFileJSON = "data.json";
+
     if(file_exists($userFileJSON)) {
         $json = file_get_contents($userFileJSON);
         $users = json_decode($json, true);
@@ -80,15 +70,16 @@ if($requestMethod == "GET") {
         sendJSON($error, 404);
     }
     
-    usort($users, function ($value1, $value2) {
-        if ($value1["points"] == $value2["points"]) {
+    usort($users, function ($user1, $user2) {
+        if ($user1["points"] == $user2["points"]) {
             return 0;
         }
-        return ($value1["points"] < $value2["points"]) ? 1 : -1;
+        return ($user1["points"] < $user2["points"]) ? 1 : -1;
     });
     
     $firstFiveUsers = array_splice($users, 0, 5);
     $topFiveHighscore = [];
+
     foreach($firstFiveUsers as $user) {
         $userTopFive = $user["username"];
         $pointsTopFive = $user["points"];
@@ -96,14 +87,8 @@ if($requestMethod == "GET") {
             "username" => $userTopFive,
             "points" => $pointsTopFive,
         ];
-    
         $topFiveHighscore[] = $userHighscore;
     }
-
     sendJSON($topFiveHighscore);
-
 }
-
-
-
 ?>
