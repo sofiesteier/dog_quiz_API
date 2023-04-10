@@ -8,7 +8,7 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 $allowedMethod = ["GET"];
 
 if(!in_array($requestMethod, $allowedMethod)) {
-    $error = ["message" => "Method Not Allowed (only POST is allowed)"];
+    $error = ["message" => "Method Not Allowed (only GET is allowed)"];
     sendJSON($error, 405);
 }
 
