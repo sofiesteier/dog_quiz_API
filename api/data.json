@@ -1,53 +1,52 @@
 [
     {
-        "username": "sofie",
-        "password": "steier",
-        "points": 0
-    },
-    {
         "username": "sofies",
         "password": "steier",
         "points": 0
     },
-   {
-       "username": "sofie",
-       "password": "steier",
-       "points": 22
-   },
-   {
-       "username": "sof",
-       "password": "ste",
-       "points": 6
-   },
-   {
-       "username": "test",
-       "password": "123",
-       "points": 5
-   },
-   {
-       "username": "hall\u00e5",
-       "password": "hej",
-       "points": 1
-   },
-   {
-       "username": "ye",
-       "password": "yee",
-       "points": 6
-   },
-   {
-       "username": "yay",
-       "password": "yaay",
-       "points": 8
-   },
-   {
-       "username": "zeb",
-       "password": "dog",
-       "points": 30
-   },
-   {
-       "username": "heeej",
-       "password": "h\u00e5\u00e5\u00e5\u00e5",
-       "points": 0
-   }
-
+    {
+        "username": "sofie",
+        "password": "steier",
+        "points": 22
+    },
+    {
+        "username": "sof",
+        "password": "ste",
+        "points": 6
+    },
+    {
+        "username": "test",
+        "password": "123",
+        "points": 5
+    },
+    {
+        "username": "hall\u00e5",
+        "password": "hej",
+        "points": 1
+    },
+    {
+        "username": "ye",
+        "password": "yee",
+        "points": 6
+    },
+    {
+        "username": "yay",
+        "password": "yaay",
+        "points": 8
+    },
+    {
+        "username": "zeb",
+        "password": "dog",
+        "points": 30
+    },
+    {
+        "username": "heeej",
+        "password": "h\u00e5\u00e5\u00e5\u00e5",
+        "points": 0
+    },
+    {
+        "username": "soffan",
+        "password": "hej",
+        "points": 1
+    }
 ]
